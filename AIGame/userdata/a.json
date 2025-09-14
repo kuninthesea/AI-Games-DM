@@ -1,0 +1,37 @@
+{
+  "username": "a",
+  "HP": 100,
+  "MP": 50,
+  "gold": 100,
+  "created_at": "2025-09-12T11:54:54.595400",
+  "last_updated": "2025-09-12T12:00:23.008671",
+  "inventory": {
+    "items": [
+      {
+        "id": "potion_health_001",
+        "name": "生命药水",
+        "type": "consumable",
+        "description": "恢复50点生命值",
+        "effect": "heal_50",
+        "quantity": 3,
+        "rarity": "common"
+      }
+    ]
+  },
+  "equipment": {
+    "weapon": {
+      "id": "sword_iron_001",
+      "name": "铁剑",
+      "type": "weapon",
+      "description": "一把普通的铁制长剑",
+      "equipped_at": "2025-09-12T12:00:23.008671"
+    },
+    "head": null,
+    "chest": null,
+    "legs": null,
+    "feet": null,
+    "accessory1": null,
+    "accessory2": null,
+    "accessory3": null
+  }
+}

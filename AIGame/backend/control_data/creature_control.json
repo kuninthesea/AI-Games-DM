@@ -1,0 +1,111 @@
+{
+  "creatures": [
+    {
+      "creature_id": "goblin_common_1",
+      "creature_name": "普通哥布林",
+      "creature_type": "goblin",
+      "rarity": "common",
+      "level": 1,
+      "avatar": "👹",
+      "description": "森林中常见的绿皮小怪物，虽然弱小但具有攻击性",
+      "base_stats": {
+        "hp": 30,
+        "mp": 10,
+        "attack": 8,
+        "defense": 3,
+        "agility": 12,
+        "intelligence": 5
+      },
+      "skills": ["basic_attack", "goblin_scratch"],
+      "ai_behavior": "aggressive",
+      "experience_reward": 15,
+      "gold_reward": {
+        "min": 3,
+        "max": 8
+      },
+      "item_drops": [
+        {
+          "item_id": "potion_health_small",
+          "drop_rate": 0.3
+        }
+      ],
+      "habitat": ["forest"],
+      "spawn_conditions": {
+        "location": "forest",
+        "player_level_min": 1,
+        "player_level_max": 5
+      }
+    },
+    {
+      "creature_id": "goblin_warrior_2",
+      "creature_name": "哥布林战士",
+      "creature_type": "goblin",
+      "rarity": "uncommon",
+      "level": 2,
+      "avatar": "⚔️👹",
+      "description": "身着简陋护甲的哥布林，比普通哥布林更加强壮",
+      "base_stats": {
+        "hp": 50,
+        "mp": 15,
+        "attack": 12,
+        "defense": 6,
+        "agility": 10,
+        "intelligence": 7
+      },
+      "skills": ["basic_attack", "goblin_scratch", "shield_bash"],
+      "ai_behavior": "defensive",
+      "experience_reward": 25,
+      "gold_reward": {
+        "min": 5,
+        "max": 12
+      },
+      "item_drops": [
+        {
+          "item_id": "potion_health_small",
+          "drop_rate": 0.5
+        },
+        {
+          "item_id": "dagger_iron",
+          "drop_rate": 0.1
+        }
+      ],
+      "habitat": ["forest"],
+      "spawn_conditions": {
+        "location": "forest",
+        "player_level_min": 2,
+        "player_level_max": 7
+      }
+    },
+    {
+      "creature_id": "training_dummy",
+      "creature_name": "木偶假人",
+      "creature_type": "training_dummy",
+      "rarity": "common",
+      "level": 1,
+      "avatar": "🏹",
+      "description": "用于战斗训练的木制假人，不会主动攻击，是练习技能的好对象",
+      "base_stats": {
+        "hp": 1000,
+        "mp": 0,
+        "attack": 0,
+        "defense": 1,
+        "agility": 0,
+        "intelligence": 0
+      },
+      "skills": [],
+      "ai_behavior": "passive",
+      "experience_reward": 5,
+      "gold_reward": {
+        "min": 0,
+        "max": 0
+      },
+      "item_drops": [],
+      "habitat": ["home"],
+      "spawn_conditions": {
+        "location": "home",
+        "player_level_min": 1,
+        "player_level_max": 99
+      }
+    }
+  ]
+}

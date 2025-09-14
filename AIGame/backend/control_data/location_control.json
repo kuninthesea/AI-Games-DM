@@ -1,0 +1,181 @@
+{
+  "areas": [
+    {
+      "area_id": "novice_village",
+      "area_name": "新手村",
+      "display_name": "新手村",
+      "description": "一个安全的新手村落，适合初学者探索和学习",
+      "area_type": "town",
+      "safety_level": "safe",
+      "background_music": "peaceful_village",
+      "background_image": "village_scenery.jpg"
+    },
+    {
+      "area_id": "village_outskirts", 
+      "area_name": "村庄外围",
+      "display_name": "村庄外围",
+      "description": "新手村周围的危险区域，有各种怪物出没",
+      "area_type": "wilderness",
+      "safety_level": "dangerous",
+      "background_music": "wilderness_ambient",
+      "background_image": "forest_landscape.jpg"
+    }
+  ],
+  "locations": [
+    {
+      "location_id": "home",
+      "location_name": "家",
+      "display_name": "家",
+      "description": "你的温馨小屋，可以在这里休息和整理物品",
+      "area_id": "novice_village",
+      "type": "safe_zone",
+      "connections": ["market", "blacksmith", "library"],
+      "events": [],
+      "npcs": [],
+      "features": ["rest", "storage"],
+      "interactions": [
+        {
+          "interaction_name": "与木偶假人战斗",
+          "interaction_type": "fight",
+          "event_id": "training_dummy_battle",
+          "conditions": {}
+        },
+        {
+          "interaction_name": "休息恢复",
+          "interaction_type": "healing",
+          "event_id": "rest_at_home",
+          "conditions": {}
+        }
+      ],
+      "coordinates": {"x": 100, "y": 100}
+    },
+    {
+      "location_id": "market",
+      "location_name": "市场",
+      "display_name": "市场", 
+      "description": "热闹的村庄市场，商贩们在此售卖各种商品",
+      "area_id": "novice_village",
+      "type": "commercial",
+      "connections": ["home", "blacksmith", "library"],
+      "events": [],
+      "npcs": ["merchant"],
+      "features": ["trade"],
+      "coordinates": {"x": 200, "y": 100}
+    },
+    {
+      "location_id": "blacksmith",
+      "location_name": "铁匠铺",
+      "display_name": "铁匠铺",
+      "description": "火花四溅的铁匠铺，这里可以购买武器和装备",
+      "area_id": "novice_village",
+      "type": "shop",
+      "connections": ["home", "market", "library"],
+      "events": [],
+      "npcs": ["blacksmith"],
+      "features": ["equipment_shop"],
+      "interactions": [
+        {
+          "interaction_name": "购买装备",
+          "interaction_type": "shop",
+          "event_id": "blacksmith_shop",
+          "conditions": {}
+        },
+        {
+          "interaction_name": "修理装备",
+          "interaction_type": "repair",
+          "event_id": "repair_equipment",
+          "conditions": {}
+        }
+      ],
+      "shop_data": {
+        "shop_name": "铁匠铺"
+      },
+      "coordinates": {"x": 300, "y": 100}
+    },
+    {
+      "location_id": "library",
+      "location_name": "图书馆",
+      "display_name": "图书馆",
+      "description": "安静的图书馆，也有药剂师在此出售药剂",
+      "area_id": "novice_village",
+      "type": "shop",
+      "connections": ["home", "market", "blacksmith", "village_gate"],
+      "events": [],
+      "npcs": ["librarian", "alchemist"],
+      "features": ["potion_shop", "research"],
+      "interactions": [
+        {
+          "interaction_name": "购买药水",
+          "interaction_type": "shop",
+          "event_id": "library_shop",
+          "conditions": {}
+        },
+        {
+          "interaction_name": "查阅书籍",
+          "interaction_type": "research",
+          "event_id": "research_books",
+          "conditions": {}
+        }
+      ],
+      "shop_data": {
+        "shop_name": "药剂师"
+      },
+      "coordinates": {"x": 150, "y": 200}
+    },
+    {
+      "location_id": "village_gate",
+      "location_name": "村庄大门",
+      "display_name": "村庄大门",
+      "description": "新手村的出入口，通往外面危险的世界",
+      "area_id": "novice_village",
+      "type": "gateway",
+      "connections": ["library", "forest"],
+      "events": [],
+      "npcs": ["gate_guard"],
+      "features": ["area_transition"],
+      "coordinates": {"x": 250, "y": 300}
+    },
+    {
+      "location_id": "forest",
+      "location_name": "村外森林",
+      "display_name": "村外森林",
+      "description": "郁郁葱葱的森林，充满了未知的危险和机遇",
+      "area_id": "village_outskirts",
+      "type": "wilderness",
+      "connections": ["village_gate", "forest_clearing"],
+      "events": ["forest_goblin_encounter"],
+      "npcs": [],
+      "features": ["combat_zone", "exploration"],
+      "interactions": [
+        {
+          "interaction_name": "寻找怪物",
+          "interaction_type": "fight",
+          "event_id": "forest_goblin_encounter",
+          "conditions": {}
+        },
+        {
+          "interaction_name": "采集草药",
+          "interaction_type": "gathering",
+          "event_id": "collect_herbs",
+          "conditions": {}
+        }
+      ],
+      "danger_level": 1,
+      "coordinates": {"x": 250, "y": 400}
+    },
+    {
+      "location_id": "forest_clearing",
+      "location_name": "森林空地",
+      "display_name": "森林空地",
+      "description": "森林深处的一片空地，阳光透过树叶洒下来",
+      "area_id": "village_outskirts",
+      "type": "wilderness",
+      "connections": ["forest"],
+      "events": ["rare_herb_find", "forest_goblin_encounter"],
+      "npcs": [],
+      "features": ["combat_zone", "resource_gathering"],
+      "danger_level": 2,
+      "coordinates": {"x": 350, "y": 450}
+    }
+  ]
+}

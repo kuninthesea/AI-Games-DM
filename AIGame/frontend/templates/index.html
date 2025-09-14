@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 TRPG跑团游戏助手 v2.0</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <!-- 登录模态框 -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-container">
+            <div class="login-title">🎲 欢迎来到TRPG世界</div>
+            <div class="login-form">
+                <div class="login-input-group">
+                    <label class="login-label">角色名:</label>
+                    <input type="text" class="login-input" id="loginUsername" placeholder="请输入你的角色名">
+                    <div class="login-error" id="usernameError">角色名不能为空</div>
+                </div>
+                
+                <div class="login-input-group">
+                    <label class="login-label">密码:</label>
+                    <input type="password" class="login-input" id="loginPassword" placeholder="请输入密码">
+                    <div class="login-error" id="passwordError">密码不能为空</div>
+                </div>
+                
+                <div class="login-buttons">
+                    <button class="login-btn primary" onclick="loginUser()">登录</button>
+                    <button class="login-btn secondary" onclick="registerUser()">注册</button>
+                </div>
+                
+                <div class="login-error" id="loginError" style="text-align: center; margin-top: 15px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container hidden" id="mainContainer">
+        <div class="header">
+            <h1>🎲 TRPG跑团游戏助手</h1>
+            <div class="user-info">
+                <span>当前用户: <span id="currentUserDisplay"></span></span>
+                <button class="logout-btn" onclick="logout()">登出</button>
+            </div>
+            <div class="time" id="currentTime"></div>
+        </div>
+        
+        <div class="main-content">
+            <div class="control-panel">
+                <!-- 游戏选择 -->
+                <div class="section">
+                    <div class="section-title">🎮 游戏选择</div>
+                    <select id="characterSelect" onchange="onCharacterChange()">
+                        <!-- 角色列表将由JavaScript动态生成 -->
+                    </select>
+                </div>
+                
+                <!-- 语言设置 -->
+                <div class="section">
+                    <div class="section-title">🌍 语言设置</div>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="language" value="中文" id="lang_1" checked>
+                            <label for="lang_1">中文</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 身份设置 -->
+                <div class="section">
+                    <div class="section-title">👤 角色设定</div>
+                    <div class="input-group">
+                        <label>你的角色:</label>
+                        <input type="text" id="userIdentity" placeholder="例如：人类战士、精灵法师">
+                    </div>
+                </div>
+                
+                <!-- 操作按钮 -->
+                <button class="btn btn-danger" onclick="clearHistory()">🗑️ 清空对话</button>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-area">
+                    <div class="chat-display" id="chatDisplay">
+                        <!-- 聊天消息将在这里动态显示 -->
+                    </div>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="messageInput" placeholder="输入消息，回车发送，Shift+回车换行..." 
+                                 onkeydown="handleKeyPress(event)"></textarea>
+                        <button class="send-btn" id="sendBtn" onclick="sendMessage()">📤 发送</button>
+                    </div>
+                </div>
+                
+                <div class="dynamic-content-area">
+                    <!-- 默认显示角色信息 -->
+                    <div class="character-image-container" id="defaultContent" style="display: flex;">
+                        <img id="characterImage" src="" alt="角色图片" style="display: none;">
+                        <div class="character-name" id="characterName">龙与地下城</div>
+                    </div>
+                    
+                    <!-- 商店内容区域 -->
+                    <div class="shop-content-area" id="shopContentArea" style="display: none;">
+                        <div class="shop-header">
+                            <div class="shop-info">
+                                <div class="shop-title" id="dynamicShopName">商店</div>
+                                <div class="shop-subtitle" id="dynamicShopDesc">选择商品进行购买</div>
+                            </div>
+                            <button class="shop-exit-btn" onclick="exitShop()">✖ 退出</button>
+                        </div>
+                        <div class="shop-items-grid" id="dynamicShopItems">
+                            <!-- 商店商品将在这里显示 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 位置互动区域 -->
+                    <div class="location-interaction-area" id="locationInteractionArea" style="display: none;">
+                        <div class="interaction-options" id="interactionOptions">
+                            <!-- 互动选项将在这里动态显示 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 战斗内容区域 -->
+                    <div class="battle-content-area" id="battleContentArea" style="display: none;">
+                        <div class="battle-header">
+                            <div class="battle-title">⚔️ 战斗中</div>
+                            <div class="turn-indicator" id="turnIndicator">你的回合</div>
+                        </div>
+                        
+                        <!-- 敌人信息 -->
+                        <div class="enemy-section">
+                            <div class="enemy-avatar" id="enemyAvatar">👹</div>
+                            <div class="enemy-info">
+                                <div class="enemy-name" id="enemyName">野生哥布林</div>
+                                <div class="enemy-hp-bar">
+                                    <div class="hp-label">HP</div>
+                                    <div class="hp-bar">
+                                        <div class="hp-fill" id="enemyHpFill" style="width: 100%;"></div>
+                                    </div>
+                                    <div class="hp-text" id="enemyHpText">30/30</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 玩家信息 -->
+                        <div class="player-section">
+                            <div class="player-info">
+                                <div class="player-name" id="battlePlayerName">玩家</div>
+                                <div class="player-hp-bar">
+                                    <div class="hp-label">HP</div>
+                                    <div class="hp-bar">
+                                        <div class="hp-fill player-hp" id="playerHpFill" style="width: 100%;"></div>
+                                    </div>
+                                    <div class="hp-text" id="playerHpText">100/100</div>
+                                </div>
+                                <div class="player-mp-bar">
+                                    <div class="mp-label">MP</div>
+                                    <div class="mp-bar">
+                                        <div class="mp-fill" id="playerMpFill" style="width: 100%;"></div>
+                                    </div>
+                                    <div class="mp-text" id="playerMpText">50/50</div>
+                                </div>
+                            </div>
+                            <div class="player-avatar">⚔️</div>
+                        </div>
+                        
+                        <!-- 战斗日志 -->
+                        <div class="battle-log" id="battleLog">
+                            <div class="log-entry">战斗开始！</div>
+                        </div>
+                        
+                        <!-- 行动选项 -->
+                        <div class="battle-actions" id="battleActions">
+                            <button class="battle-btn attack-btn" onclick="playerAttack()">⚔️ 普通攻击</button>
+                            <button class="battle-btn defend-btn" onclick="playerDefend()">🛡️ 防御</button>
+                            <button class="battle-btn flee-btn" onclick="playerFlee()">🏃 逃跑</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="user-data-panel">
+                <div class="section">
+                    <div class="section-title">⚔️ 角色数据</div>
+                    <div class="user-avatar">
+                        <div class="avatar-placeholder">👤</div>
+                        <div class="username-display" id="usernameDisplay">未登录</div>
+                        <button class="logout-btn" id="logoutBtn" onclick="logoutUser()" style="display: none;">🚪 登出</button>
+                    </div>
+                    
+                    <!-- 用户名输入框 -->
+                    <div class="input-group">
+                        <label>用户名:</label>
+                        <input type="text" id="username" placeholder="输入你的用户名" onchange="loadUserData()">
+                    </div>
+                    
+                    <div class="stats-container">
+                        <div class="stat-item hp">
+                            <div class="stat-icon">❤️</div>
+                            <div class="stat-info">
+                                <div class="stat-label">生命值</div>
+                                <div class="stat-value" id="userHP">--</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item mp">
+                            <div class="stat-icon">💙</div>
+                            <div class="stat-info">
+                                <div class="stat-label">魔法值</div>
+                                <div class="stat-value" id="userMP">--</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item gold">
+                            <div class="stat-icon">🪙</div>
+                            <div class="stat-info">
+                                <div class="stat-label">金币</div>
+                                <div class="stat-value" id="userGold">--</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item experience">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-info">
+                                <div class="stat-label">经验值</div>
+                                <div class="stat-value" id="userExperience">--</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item level">
+                            <div class="stat-icon">🎖️</div>
+                            <div class="stat-info">
+                                <div class="stat-label">等级</div>
+                                <div class="stat-value" id="userLevel">--</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item attack">
+                            <div class="stat-icon">⚔️</div>
+                            <div class="stat-info">
+                                <div class="stat-label">攻击力</div>
+                                <div class="stat-value" id="userAttack">--</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item defense">
+                            <div class="stat-icon">🛡️</div>
+                            <div class="stat-info">
+                                <div class="stat-label">防御力</div>
+                                <div class="stat-value" id="userDefense">--</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item critical-rate">
+                            <div class="stat-icon">💥</div>
+                            <div class="stat-info">
+                                <div class="stat-label">暴击率</div>
+                                <div class="stat-value" id="userCriticalRate">--</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item critical-damage">
+                            <div class="stat-icon">💢</div>
+                            <div class="stat-info">
+                                <div class="stat-label">暴击伤害</div>
+                                <div class="stat-value" id="userCriticalDamage">--</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 地图系统 -->
+                    <div class="section">
+                        <div class="section-title">🗺️ 当前位置</div>
+                        <div class="location-info">
+                            <div class="current-location-name" id="currentLocation">未知位置</div>
+                            <div class="location-description" id="locationDescription">位置描述将显示在这里...</div>
+                        </div>
+                        
+                        <div class="map-navigation">
+                            <div class="nav-title">🧭 地图导航</div>
+                            <div class="location-info-text">
+                                💬 对主持人说"我想去xxx"来移动位置
+                            </div>
+                            <button class="btn btn-map" onclick="toggleMapModal()">🗺️ 查看地图</button>
+                            <div class="location-list" id="locationList" style="display: none;">
+                                <!-- 地点信息将由JavaScript动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <!-- 游戏状态显示 -->
+                    <div class="game-status">
+                        <div class="status-item">
+                            <span>游戏:</span>
+                            <span id="currentChar">龙与地下城</span>
+                        </div>
+                        <div class="status-item">
+                            <span>语言:</span>
+                            <span id="currentLang">中文</span>
+                        </div>
+                        <div class="status-item" id="multiplayerStatus" style="display: none;">
+                            <span>房间:</span>
+                            <span id="roomIdDisplay">-</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 联机互动控制 -->
+                    <div id="multiplayerInteraction" class="multiplayer-interaction" style="display: none;">
+                        <h4>🎭 玩家互动</h4>
+                        <div class="interaction-controls">
+                            <select id="interactionTarget">
+                                <option value="">选择互动对象...</option>
+                            </select>
+                            <input type="text" id="interactionMessage" placeholder="输入互动内容...">
+                            <button class="btn btn-interaction" onclick="sendInteraction()">发送互动</button>
+                        </div>
+                        <button class="btn btn-danger btn-small" onclick="leaveMultiplayerRoom()">离开房间</button>
+                    </div>
+                    
+                    <!-- 背包和操作按钮 -->
+                    <div class="user-actions">
+                        <button class="btn btn-inventory" onclick="openInventory()">🎒 背包</button>
+                        <button class="btn btn-edit" onclick="editUserStats()">✏️ 编辑属性</button>
+                        <button class="btn btn-multiplayer" onclick="openMultiplayer()">🌐 联机游戏</button>
+                        <button class="btn btn-secondary" onclick="resetUserData()">🔄 重置数据</button>
+                        <button class="btn btn-primary" onclick="saveUserData()">💾 保存数据</button>
+                        <button class="btn btn-test" onclick="openItemTest()">🧪 物品测试</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 物品测试模态框 -->
+    <div id="itemTestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🧪 物品系统测试</h2>
+                <span class="close" onclick="closeItemTest()">&times;</span>
+            </div>
+            
+            <div class="test-container">
+                <div class="test-section">
+                    <h3>添加物品到背包</h3>
+                    <select id="itemSelect">
+                        <option value="">选择物品...</option>
+                    </select>
+                    <input type="number" id="itemQuantity" value="1" min="1" max="99">
+                    <button class="btn btn-primary" onclick="addTestItem()">添加物品</button>
+                </div>
+                
+                <div class="test-section">
+                    <h3>快速添加常用物品</h3>
+                    <button class="btn btn-secondary" onclick="addQuickItem('potion_health_small', 5)">+5 小型生命药水</button>
+                    <button class="btn btn-secondary" onclick="addQuickItem('potion_mana_small', 3)">+3 小型魔法药水</button>
+                    <button class="btn btn-secondary" onclick="addQuickItem('sword_steel', 1)">+1 钢剑</button>
+                    <button class="btn btn-secondary" onclick="addQuickItem('ring_power', 1)">+1 力量之戒</button>
+                </div>
+                
+                <div class="test-section">
+                    <h3>物品类型过滤</h3>
+                    <button class="btn btn-filter" onclick="filterItems('装备类')">装备类</button>
+                    <button class="btn btn-filter" onclick="filterItems('消耗类')">消耗类</button>
+                    <button class="btn btn-filter" onclick="filterItems('任务类')">任务类</button>
+                    <button class="btn btn-filter" onclick="filterItems('素材类')">素材类</button>
+                    <button class="btn btn-filter" onclick="filterItems('')">全部</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 背包模态框 -->
+    <div id="inventoryModal" class="modal">
+        <div class="modal-content inventory-modal">
+            <div class="modal-header">
+                <h2>🎒 背包系统</h2>
+                <span class="close" onclick="closeInventory()">&times;</span>
+            </div>
+            
+            <div class="inventory-container">
+                <!-- 装备区域 -->
+                <div class="equipment-panel">
+                    <h3>🛡️ 当前装备</h3>
+                    <div class="equipment-grid">
+                        <div class="equipment-slot" data-slot="head">
+                            <div class="slot-label">头部</div>
+                            <div class="slot-item" id="eq-head">空</div>
+                            <button class="unequip-btn" onclick="unequipItem('head')" style="display:none;">卸下</button>
+                        </div>
+                        
+                        <div class="equipment-slot" data-slot="weapon">
+                            <div class="slot-label">武器</div>
+                            <div class="slot-item" id="eq-weapon">空</div>
+                            <button class="unequip-btn" onclick="unequipItem('weapon')" style="display:none;">卸下</button>
+                        </div>
+                        
+                        <div class="equipment-slot" data-slot="chest">
+                            <div class="slot-label">胸甲</div>
+                            <div class="slot-item" id="eq-chest">空</div>
+                            <button class="unequip-btn" onclick="unequipItem('chest')" style="display:none;">卸下</button>
+                        </div>
+                        
+                        <div class="equipment-slot" data-slot="legs">
+                            <div class="slot-label">腿部</div>
+                            <div class="slot-item" id="eq-legs">空</div>
+                            <button class="unequip-btn" onclick="unequipItem('legs')" style="display:none;">卸下</button>
+                        </div>
+                        
+                        <div class="equipment-slot" data-slot="feet">
+                            <div class="slot-label">鞋子</div>
+                            <div class="slot-item" id="eq-feet">空</div>
+                            <button class="unequip-btn" onclick="unequipItem('feet')" style="display:none;">卸下</button>
+                        </div>
+                        
+                        <div class="equipment-slot" data-slot="accessory1">
+                            <div class="slot-label">饰品1</div>
+                            <div class="slot-item" id="eq-accessory1">空</div>
+                            <button class="unequip-btn" onclick="unequipItem('accessory1')" style="display:none;">卸下</button>
+                        </div>
+                        
+                        <div class="equipment-slot" data-slot="accessory2">
+                            <div class="slot-label">饰品2</div>
+                            <div class="slot-item" id="eq-accessory2">空</div>
+                            <button class="unequip-btn" onclick="unequipItem('accessory2')" style="display:none;">卸下</button>
+                        </div>
+                        
+                        <div class="equipment-slot" data-slot="accessory3">
+                            <div class="slot-label">饰品3</div>
+                            <div class="slot-item" id="eq-accessory3">空</div>
+                            <button class="unequip-btn" onclick="unequipItem('accessory3')" style="display:none;">卸下</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 背包区域 -->
+                <div class="inventory-panel">
+                    <h3>📦 物品背包</h3>
+                    <div class="inventory-grid" id="inventoryGrid">
+                        <!-- 背包物品将在这里动态显示 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 联机游戏模态框 -->
+    <div id="multiplayerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeMultiplayer()">&times;</span>
+            <h2>🌐 联机游戏</h2>
+            
+            <!-- 联机选择 -->
+            <div id="multiplayerSelection" class="multiplayer-selection">
+                <div class="multiplayer-option">
+                    <h3>🏠 创建房间</h3>
+                    <p>成为主持人，邀请其他玩家加入您的游戏</p>
+                    <button class="btn btn-primary" onclick="createAndStartRoom()">创建并开始游戏</button>
+                </div>
+                
+                <div class="multiplayer-option">
+                    <h3>🚪 加入房间</h3>
+                    <div class="input-group">
+                        <label>房间ID:</label>
+                        <input type="text" id="roomIdInput" placeholder="输入房间ID">
+                    </div>
+                    <button class="btn btn-primary" onclick="joinAndStartRoom()">加入游戏</button>
+                </div>
+                
+                <div class="multiplayer-option">
+                    <h3>📋 房间列表</h3>
+                    <div id="roomsList">
+                        <!-- 房间列表将在这里显示 -->
+                    </div>
+                    <button class="btn btn-secondary" onclick="refreshRoomList()">刷新列表</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 地图模态框 -->
+    <div class="map-modal" id="mapModal">
+        <div class="map-container">
+            <div class="map-header">
+                <h3>🗺️ 世界地图</h3>
+                <button class="map-close-btn" onclick="closeMapModal()">✕</button>
+            </div>
+            <div class="map-content">
+                <!-- 区域选择视图 -->
+                <div class="map-areas-view" id="mapAreasView">
+                    <h4>选择区域</h4>
+                    <div class="areas-grid" id="areasGrid">
+                        <!-- 区域将由JS动态生成 -->
+                    </div>
+                </div>
+                
+                <!-- 地点选择视图 -->
+                <div class="map-locations-view" id="mapLocationsView" style="display: none;">
+                    <div class="map-breadcrumb">
+                        <button class="breadcrumb-btn" onclick="showAreasView()">← 返回区域选择</button>
+                        <span id="currentAreaName">区域名称</span>
+                    </div>
+                    <h4>选择地点</h4>
+                    <div class="locations-grid" id="locationsGrid">
+                        <!-- 地点将由JS动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/app.js"></script>
+</body>
+</html>

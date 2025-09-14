@@ -1,0 +1,164 @@
+{
+  "items": [
+    {
+      "item_id": "boots_iron",
+      "item_name": "铁靴",
+      "item_type": "boots",
+      "rarity": "common",
+      "description": "坚固的铁制靴子，提供基础防护",
+      "stats": {
+        "defense": 5,
+        "hp": 10
+      },
+      "level_requirement": 1
+    },
+    {
+      "item_id": "sword_iron",
+      "item_name": "铁剑",
+      "item_type": "weapon",
+      "rarity": "common",
+      "description": "标准的铁制长剑，锋利且耐用",
+      "stats": {
+        "attack": 15,
+        "critical_rate": 5
+      },
+      "level_requirement": 1
+    },
+    {
+      "item_id": "helmet_iron",
+      "item_name": "铁盔",
+      "item_type": "helmet",
+      "rarity": "common",
+      "description": "厚重的铁制头盔，保护头部免受攻击",
+      "stats": {
+        "defense": 8,
+        "hp": 15
+      },
+      "level_requirement": 1
+    },
+    {
+      "item_id": "armor_leather",
+      "item_name": "皮甲",
+      "item_type": "armor",
+      "rarity": "common",
+      "description": "柔软的皮制护甲，提供灵活性和基础防护",
+      "stats": {
+        "defense": 10,
+        "agility": 2
+      },
+      "level_requirement": 1
+    },
+    {
+      "item_id": "dagger_iron",
+      "item_name": "铁匕首",
+      "item_type": "weapon",
+      "rarity": "common",
+      "description": "轻便的铁制匕首，攻击速度快",
+      "stats": {
+        "attack": 8,
+        "critical_rate": 10,
+        "agility": 3
+      },
+      "level_requirement": 1
+    },
+    {
+      "item_id": "pants_leather",
+      "item_name": "皮裤",
+      "item_type": "pants",
+      "rarity": "common",
+      "description": "结实的皮制护腿，保护腿部",
+      "stats": {
+        "defense": 6,
+        "agility": 1
+      },
+      "level_requirement": 1
+    },
+    {
+      "item_id": "potion_health_small",
+      "item_name": "小型治疗药剂",
+      "item_type": "potion",
+      "rarity": "common",
+      "description": "恢复少量生命值的药剂",
+      "effect": {
+        "type": "heal",
+        "value": 50
+      },
+      "consumable": true
+    },
+    {
+      "item_id": "potion_health_medium",
+      "item_name": "中型治疗药剂",
+      "item_type": "potion",
+      "rarity": "common",
+      "description": "恢复中等生命值的药剂",
+      "effect": {
+        "type": "heal",
+        "value": 100
+      },
+      "consumable": true
+    },
+    {
+      "item_id": "potion_mana_small",
+      "item_name": "小型魔法药剂",
+      "item_type": "potion",
+      "rarity": "common",
+      "description": "恢复少量魔法值的药剂",
+      "effect": {
+        "type": "restore_mana",
+        "value": 30
+      },
+      "consumable": true
+    },
+    {
+      "item_id": "potion_mana_medium",
+      "item_name": "中型魔法药剂",
+      "item_type": "potion",
+      "rarity": "common",
+      "description": "恢复中等魔法值的药剂",
+      "effect": {
+        "type": "restore_mana",
+        "value": 60
+      },
+      "consumable": true
+    },
+    {
+      "item_id": "potion_strength",
+      "item_name": "力量药剂",
+      "item_type": "potion",
+      "rarity": "uncommon",
+      "description": "临时提升攻击力的药剂",
+      "effect": {
+        "type": "buff",
+        "stat": "attack",
+        "value": 10,
+        "duration": 300
+      },
+      "consumable": true
+    },
+    {
+      "item_id": "ring_vitality",
+      "item_name": "活力戒指",
+      "item_type": "accessory",
+      "rarity": "uncommon",
+      "description": "增加生命值和魔法值上限的神奇戒指",
+      "stats": {
+        "hp": 25,
+        "mp": 15,
+        "defense": 3
+      },
+      "level_requirement": 2
+    },
+    {
+      "item_id": "amulet_mana",
+      "item_name": "法力护符",
+      "item_type": "accessory",
+      "rarity": "rare",
+      "description": "大幅提升魔法值上限的珍贵护符",
+      "stats": {
+        "mp": 40,
+        "intelligence": 5
+      },
+      "level_requirement": 3
+    }
+  ]
+}

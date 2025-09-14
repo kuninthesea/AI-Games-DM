@@ -1,0 +1,115 @@
+{
+  "skills": [
+    {
+      "skill_id": "basic_attack",
+      "skill_name": "普通攻击",
+      "skill_type": "attack",
+      "category": "basic",
+      "description": "基础的物理攻击",
+      "mp_cost": 0,
+      "cooldown": 0,
+      "target_type": "single_enemy",
+      "effects": [
+        {
+          "type": "damage",
+          "element": "physical",
+          "base_damage": 1.0,
+          "scaling": "attack"
+        }
+      ],
+      "animation": "attack",
+      "available_to": ["player", "all_creatures"]
+    },
+    {
+      "skill_id": "goblin_scratch",
+      "skill_name": "哥布林抓挠",
+      "skill_type": "attack",
+      "category": "creature_specific",
+      "description": "哥布林的尖锐爪子攻击，有概率造成出血",
+      "mp_cost": 2,
+      "cooldown": 1,
+      "target_type": "single_enemy",
+      "effects": [
+        {
+          "type": "damage",
+          "element": "physical",
+          "base_damage": 0.8,
+          "scaling": "attack"
+        },
+        {
+          "type": "status_chance",
+          "status": "bleeding",
+          "chance": 0.2,
+          "duration": 3
+        }
+      ],
+      "animation": "scratch",
+      "available_to": ["goblin"]
+    },
+    {
+      "skill_id": "shield_bash",
+      "skill_name": "盾击",
+      "skill_type": "attack",
+      "category": "defensive",
+      "description": "用盾牌进行攻击，有概率眩晕敌人",
+      "mp_cost": 5,
+      "cooldown": 2,
+      "target_type": "single_enemy",
+      "effects": [
+        {
+          "type": "damage",
+          "element": "physical",
+          "base_damage": 0.6,
+          "scaling": "defense"
+        },
+        {
+          "type": "status_chance",
+          "status": "stun",
+          "chance": 0.3,
+          "duration": 1
+        }
+      ],
+      "animation": "shield_bash",
+      "available_to": ["goblin_warrior"]
+    },
+    {
+      "skill_id": "defend",
+      "skill_name": "防御",
+      "skill_type": "defensive",
+      "category": "basic",
+      "description": "提高防御力，减少受到的伤害",
+      "mp_cost": 0,
+      "cooldown": 0,
+      "target_type": "self",
+      "effects": [
+        {
+          "type": "buff",
+          "stat": "defense",
+          "multiplier": 1.5,
+          "duration": 1
+        }
+      ],
+      "animation": "defend",
+      "available_to": ["player", "all_creatures"]
+    },
+    {
+      "skill_id": "heal",
+      "skill_name": "治疗",
+      "skill_type": "healing",
+      "category": "magic",
+      "description": "恢复生命值",
+      "mp_cost": 8,
+      "cooldown": 0,
+      "target_type": "self",
+      "effects": [
+        {
+          "type": "heal",
+          "base_heal": 25,
+          "scaling": "intelligence"
+        }
+      ],
+      "animation": "heal",
+      "available_to": ["player"]
+    }
+  ]
+}

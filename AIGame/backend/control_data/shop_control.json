@@ -1,0 +1,92 @@
+{
+  "shops": [
+    {
+      "shop_name": "铁匠铺",
+      "display_name": "铁匠铺",
+      "description": "村里的铁匠铺，出售各种武器装备",
+      "location_name": "blacksmith",
+      "shop_type": "equipment",
+      "items": [
+        {
+          "item_id": "boots_iron",
+          "price": 150,
+          "stock": -1
+        },
+        {
+          "item_id": "sword_iron",
+          "price": 200,
+          "stock": -1
+        },
+        {
+          "item_id": "helmet_iron",
+          "price": 120,
+          "stock": -1
+        },
+        {
+          "item_id": "armor_leather",
+          "price": 100,
+          "stock": -1
+        },
+        {
+          "item_id": "dagger_iron",
+          "price": 80,
+          "stock": -1
+        },
+        {
+          "item_id": "pants_leather",
+          "price": 90,
+          "stock": -1
+        },
+        {
+          "item_id": "potion_health_medium",
+          "price": 90,
+          "stock": -1
+        }
+      ]
+    },
+    {
+      "shop_name": "药剂师",
+      "display_name": "药剂师",
+      "description": "出售各种药剂和恢复物品的商店",
+      "location_name": "library",
+      "shop_type": "potion",
+      "items": [
+        {
+          "item_id": "potion_health_small",
+          "price": 25,
+          "stock": -1
+        },
+        {
+          "item_id": "potion_health_medium",
+          "price": 50,
+          "stock": -1
+        },
+        {
+          "item_id": "potion_mana_small",
+          "price": 30,
+          "stock": -1
+        },
+        {
+          "item_id": "potion_mana_medium",
+          "price": 60,
+          "stock": -1
+        },
+        {
+          "item_id": "potion_strength",
+          "price": 80,
+          "stock": 5
+        },
+        {
+          "item_id": "ring_vitality",
+          "price": 150,
+          "stock": 3
+        },
+        {
+          "item_id": "amulet_mana",
+          "price": 300,
+          "stock": 2
+        }
+      ]
+    }
+  ]
+}

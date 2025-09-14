@@ -1,0 +1,220 @@
+{
+  "events": [
+    {
+      "event_id": "forest_goblin_encounter",
+      "event_name": "森林哥布林遭遇",
+      "event_type": "battle",
+      "description": "在森林中遭遇了野生哥布林",
+      "trigger_conditions": {
+        "location": "forest",
+        "trigger_type": "location_enter",
+        "chance": 0.8,
+        "player_level_min": 1,
+        "player_level_max": 10
+      },
+      "event_data": {
+        "battle_type": "creature_encounter",
+        "creatures": [
+          {
+            "creature_id": "goblin_common_1",
+            "spawn_chance": 0.7
+          },
+          {
+            "creature_id": "goblin_warrior_2", 
+            "spawn_chance": 0.3
+          }
+        ],
+        "flee_allowed": true,
+        "auto_start": true
+      },
+      "rewards": {
+        "experience_multiplier": 1.0,
+        "gold_multiplier": 1.0
+      },
+      "repeatable": true,
+      "cooldown": 0
+    },
+    {
+      "event_id": "shop_visit",
+      "event_name": "商店访问",
+      "event_type": "shop",
+      "description": "进入商店",
+      "trigger_conditions": {
+        "trigger_type": "location_enter",
+        "locations": ["blacksmith", "library"]
+      },
+      "event_data": {
+        "auto_open_shop": true
+      },
+      "repeatable": true,
+      "cooldown": 0
+    },
+    {
+      "event_id": "rest_at_home",
+      "event_name": "在家休息",
+      "event_type": "healing",
+      "description": "在家中恢复体力",
+      "trigger_conditions": {
+        "location": "home",
+        "trigger_type": "manual",
+        "hp_percentage_below": 0.8
+      },
+      "event_data": {
+        "heal_percentage": 1.0,
+        "restore_mp_percentage": 1.0
+      },
+      "repeatable": true,
+      "cooldown": 3600
+    },
+    {
+      "event_id": "training_dummy_battle",
+      "event_name": "木偶假人训练",
+      "event_type": "fight",
+      "description": "与训练用木偶假人进行安全的战斗训练",
+      "trigger_conditions": {
+        "location": "home",
+        "trigger_type": "manual"
+      },
+      "event_data": {
+        "battle_type": "training",
+        "creatures": [
+          {
+            "creature_id": "training_dummy",
+            "spawn_chance": 1.0
+          }
+        ],
+        "flee_allowed": true,
+        "safe_battle": true
+      },
+      "rewards": {
+        "experience_multiplier": 0.5,
+        "gold_multiplier": 0.0
+      },
+      "repeatable": true,
+      "cooldown": 0
+    },
+    {
+      "event_id": "blacksmith_shop",
+      "event_name": "铁匠铺购物",
+      "event_type": "shop",
+      "description": "在铁匠铺购买装备",
+      "trigger_conditions": {
+        "location": "blacksmith",
+        "trigger_type": "manual"
+      },
+      "event_data": {
+        "shop_type": "equipment",
+        "shop_id": "blacksmith"
+      },
+      "repeatable": true,
+      "cooldown": 0
+    },
+    {
+      "event_id": "library_shop",
+      "event_name": "图书馆药剂店",
+      "event_type": "shop",
+      "description": "在图书馆购买药水",
+      "trigger_conditions": {
+        "location": "library",
+        "trigger_type": "manual"
+      },
+      "event_data": {
+        "shop_type": "potion",
+        "shop_id": "library"
+      },
+      "repeatable": true,
+      "cooldown": 0
+    },
+    {
+      "event_id": "repair_equipment",
+      "event_name": "修理装备",
+      "event_type": "repair",
+      "description": "修理损坏的装备",
+      "trigger_conditions": {
+        "location": "blacksmith",
+        "trigger_type": "manual"
+      },
+      "event_data": {
+        "repair_cost_multiplier": 0.1
+      },
+      "repeatable": true,
+      "cooldown": 0
+    },
+    {
+      "event_id": "research_books",
+      "event_name": "查阅书籍",
+      "event_type": "research",
+      "description": "在图书馆研究魔法知识",
+      "trigger_conditions": {
+        "location": "library",
+        "trigger_type": "manual"
+      },
+      "event_data": {
+        "research_type": "magic_knowledge"
+      },
+      "repeatable": true,
+      "cooldown": 3600
+    },
+    {
+      "event_id": "collect_herbs",
+      "event_name": "采集草药",
+      "event_type": "gathering",
+      "description": "在森林中采集有用的草药",
+      "trigger_conditions": {
+        "location": "forest",
+        "trigger_type": "manual"
+      },
+      "event_data": {
+        "gathering_type": "herbs",
+        "success_chance": 0.8,
+        "items": [
+          {
+            "item_id": "healing_herb",
+            "quantity": 1,
+            "chance": 0.6
+          },
+          {
+            "item_id": "mana_herb",
+            "quantity": 1,
+            "chance": 0.4
+          }
+        ]
+      },
+      "repeatable": true,
+      "cooldown": 1800
+    },
+    {
+      "event_id": "rare_herb_find",
+      "event_name": "发现稀有草药",
+      "event_type": "treasure",
+      "description": "在森林空地发现了珍贵的草药",
+      "trigger_conditions": {
+        "location": "forest_clearing",
+        "trigger_type": "location_enter",
+        "chance": 0.3,
+        "player_level_min": 1
+      },
+      "event_data": {
+        "treasure_type": "item",
+        "items": [
+          {
+            "item_id": "potion_health_medium",
+            "quantity": 1,
+            "chance": 0.6
+          },
+          {
+            "item_id": "potion_mana_medium", 
+            "quantity": 1,
+            "chance": 0.4
+          }
+        ],
+        "gold_reward": {
+          "min": 10,
+          "max": 25
+        }
+      },
+      "repeatable": true,
+      "cooldown": 1800
+    }
+  ]
+}
